@@ -3,6 +3,7 @@ import { ContactList } from './contacts/ContactList';
 import { Filter } from './contacts/Filter';
 import ContactForm from './contacts/ContactForm';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import * as css from './contacts/contacts.styled';
 
 
 class App extends Component {
@@ -68,7 +69,7 @@ class App extends Component {
 
   renderContact = (array) => {
     return array.map((contact) => (
-      <li key={contact.id}>{contact.name} : {contact.number}
+      <li key={contact.id}>{contact.name}: {contact.number}
         <button type='button' onClick={() => this.deleteContact(contact.id)}>Delete</button>
       </li>
     ))
@@ -77,13 +78,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <css.DivAll>
         <h1>Phonebook</h1>
         <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter changeFilter={this.changeFilter} />
         <ContactList filter={this.resultFilter()} render={this.renderContact} />
-      </div>
+      </css.DivAll>
     )
 
   }

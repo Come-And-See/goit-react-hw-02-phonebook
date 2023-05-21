@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import * as css from './contacts.styled';
 
 export const ContactList = ({ filter, render }) => {
     return (
-        <ul>{render(filter)}</ul>
+        <css.UlContactList>{render(filter)}</css.UlContactList>
     )
 
 }

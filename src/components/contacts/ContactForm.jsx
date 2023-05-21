@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid'
 import PropTypes from 'prop-types';
+import * as css from './contacts.styled';
 
 class ContactForm extends Component {
     state = {
@@ -41,7 +42,7 @@ class ContactForm extends Component {
     render() {
         const { name, number } = this.state;
         return (
-            <div>
+            <css.DivContactForm>
                 <label htmlFor="name">
                     Name
                     <input
@@ -65,7 +66,7 @@ class ContactForm extends Component {
                         required
                     /></label>
                 <button type='button' onClick={this.addContact}>Add contact</button>
-            </div>
+            </css.DivContactForm>
         )
     }
 
