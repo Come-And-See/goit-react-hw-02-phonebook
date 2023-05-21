@@ -43,6 +43,7 @@ class App extends Component {
         Notify.failure(`${el.name} is already in contacts.`);
         duplicate = true;
       }
+      return duplicate;
     })
 
     return duplicate;
@@ -68,7 +69,7 @@ class App extends Component {
   renderContact = (array) => {
     return array.map((contact) => (
       <li key={contact.id}>{contact.name} : {contact.number}
-        <button type='button' onClick={()=>this.deleteContact(contact.id)}>Delete</button>
+        <button type='button' onClick={() => this.deleteContact(contact.id)}>Delete</button>
       </li>
     ))
   }
