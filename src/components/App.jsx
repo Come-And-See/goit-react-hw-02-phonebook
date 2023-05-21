@@ -17,9 +17,9 @@ class App extends Component {
   }
 
   addContact = (contact) => {
-    console.log(contact.name);
-
-    // this.changeFilter(contact.name)
+    if (this.checkDuplicates(contact.name)) {
+      return;
+    }
 
     this.setState((prevState) => ({
       contacts: [contact, ...prevState.contacts]
@@ -27,19 +27,25 @@ class App extends Component {
   }
 
 
-  checkDuplicates = (name) => {
+  deleteContact = (id) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }))
+  }
+
+  checkDuplicates = (inputName) => {
     const { contacts } = this.state;
-    console.log("contacts:", contacts)
 
-    console.log("name", name);
-    
+    let duplicate = false;
 
+    Object.values(contacts).map((el) => {
+      if (el.name.toLocaleLowerCase().includes(inputName.toLocaleLowerCase())) {
+        Notify.failure(`${el.name} is already in contacts.`);
+        duplicate = true;
+      }
+    })
 
-    if (name === Object.keys(contacts)) {
-      console.log("object");
-    }
-
-
+    return duplicate;
   }
 
   changeFilter = (e) => {
@@ -61,7 +67,9 @@ class App extends Component {
 
   renderContact = (array) => {
     return array.map((contact) => (
-      <li key={contact.id}>{contact.name} : {contact.number} </li>
+      <li key={contact.id}>{contact.name} : {contact.number}
+        <button type='button' onClick={()=>this.deleteContact(contact.id)}>Delete</button>
+      </li>
     ))
   }
 
