@@ -4,6 +4,7 @@ import { Filter } from './contacts/Filter';
 import ContactForm from './contacts/ContactForm';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as css from './contacts/contacts.styled';
+import { nanoid } from 'nanoid'
 
 
 class App extends Component {
@@ -22,8 +23,13 @@ class App extends Component {
       return;
     }
 
+    // contact = {
+    //   ...contact,
+    //   id: nanoid()
+    // }
+
     this.setState((prevState) => ({
-      contacts: [contact, ...prevState.contacts]
+      contacts: [{ ...contact, id: nanoid() }, ...prevState.contacts]
     }));
   }
 

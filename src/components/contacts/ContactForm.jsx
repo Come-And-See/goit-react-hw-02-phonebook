@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { nanoid } from 'nanoid'
 import PropTypes from 'prop-types';
 import * as css from './contacts.styled';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 class ContactForm extends Component {
     state = {
@@ -9,12 +9,8 @@ class ContactForm extends Component {
         number: ''
     }
 
-    addName = (e) => {
-        this.setState({ name: e.currentTarget.value })
-    }
-
-    addNumber = (e) => {
-        this.setState({ number: e.currentTarget.value })
+    addNameNumber = (e) => {
+        this.setState(() => ({ [e.target.name]: e.target.value }))
     }
 
     addContact = () => {
@@ -23,10 +19,10 @@ class ContactForm extends Component {
         const contact = {
             name,
             number,
-            id: nanoid()
         }
 
-        if (name === '') {
+        if (name === '' || number === '') {
+            Notify.failure(`Enter the contact's name and phone number.`);
             return;
         }
 
@@ -51,7 +47,7 @@ class ContactForm extends Component {
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                         value={name}
-                        onChange={this.addName}
+                        onChange={this.addNameNumber}
                         required
                     />
                 </label>
@@ -62,7 +58,7 @@ class ContactForm extends Component {
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                         value={number}
-                        onChange={this.addNumber}
+                        onChange={this.addNameNumber}
                         required
                     /></label>
                 <button type='button' onClick={this.addContact}>Add contact</button>
